@@ -23,7 +23,7 @@ FROM bookings b
 INNER JOIN users u ON b.user_id = u.user_id
 WHERE b.status = 'confirmed'
 ORDER BY b.booking_date DESC;
-
+```
 --- 
 
 ### Baseline Performance
@@ -38,7 +38,7 @@ ORDER BY b.booking_date DESC;
 ## Indexes Added
 The following indexes were created to optimize frequent filtering and join operations:
 
-sql
+```sql
 
 Copy code
 CREATE INDEX idx_bookings_status ON bookings(status);
@@ -47,13 +47,13 @@ CREATE INDEX idx_bookings_user_property ON bookings(user_id, property_id);
 
 CREATE INDEX idx_users_created_at ON users(created_at);
 CREATE UNIQUE INDEX idx_users_email ON users(email);
-
+```
 --- 
 
 ## Query Performance After Indexing
 The same query was executed after adding the indexes:
 
-sql
+```sql
 Copy code
 EXPLAIN ANALYZE
 SELECT b.booking_id, b.booking_date, b.status, u.first_name, u.last_name
@@ -61,7 +61,7 @@ FROM bookings b
 INNER JOIN users u ON b.user_id = u.user_id
 WHERE b.status = 'confirmed'
 ORDER BY b.booking_date DESC;
-
+```
 --- 
 
 ### Improved Performance
@@ -81,4 +81,5 @@ ORDER BY b.booking_date DESC;
 ## Key Takeaways
 - Indexing frequently used WHERE, JOIN, and ORDER BY columns significantly improves query performance.
 - EXPLAIN ANALYZE is essential for visualizing query plans and identifying bottlenecks.
+
 - Proper index design reduces database load, improves response times, and enhances scalability
