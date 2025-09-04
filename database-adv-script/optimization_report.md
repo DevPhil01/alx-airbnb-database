@@ -63,8 +63,7 @@ CREATE INDEX IF NOT EXISTS idx_payments_booking_id ON payments(booking_id);
 
 ## Optimized Query (After Optimization)
 
-```
-sql
+```sql
 Copy code
 EXPLAIN ANALYZE
 SELECT 
@@ -86,4 +85,5 @@ ORDER BY b.booking_date DESC;
 
 ## Results: Before vs After
 - Before: Sequential scans, high cost (~800–1200 ms depending on dataset size).
+
 - After: Index scans used, cost reduced by 40–60%, improved query response time.
